@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        isAction = true;
+        
 	}
 	
 	// Update is called once per frame

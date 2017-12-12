@@ -7,7 +7,6 @@ public class PlayerContoller : MonoBehaviour {
     /***********************************************
      * クラス変数
      * ********************************************/
-    //private Rigidbody2D myRigidbody;
     private Vector2 playerVec;    
     private Vector2 clickPosDown, clickPosUp;
     private float power = 10.0f;
@@ -20,7 +19,6 @@ public class PlayerContoller : MonoBehaviour {
      * ********************************************/
     void Awake()
     {
-        //myRigidbody = GetComponent<Rigidbody2D>();
         arrow = transform.Find("Arrow").gameObject;
     }
     // Use this for initialization
