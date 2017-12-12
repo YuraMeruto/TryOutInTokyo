@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class urchin : EnemyBase {
+public class Urchin : EnemyBase {
 
     private float activeTimer;
 
     private int status;
 
     public GameObject urchinActive;
+    public BoxCollider2D collider;
 
     void Start () {
         activeTimer = 0.0f;
@@ -24,6 +25,7 @@ public class urchin : EnemyBase {
                 {
                     urchinActive.SetActiveRecursively(true);
                     status = 1;
+                    collider.size = new Vector2(0.2f, 0.2f);
                 }
                 break;
             case 1:
@@ -31,8 +33,8 @@ public class urchin : EnemyBase {
                 if (activeTimer <= 0.0f)
                 {
                     urchinActive.SetActiveRecursively(false);
-
                     status = 0;
+                    collider.size = new Vector2(0.16f, 0.16f);
                 }
                 break;
 
