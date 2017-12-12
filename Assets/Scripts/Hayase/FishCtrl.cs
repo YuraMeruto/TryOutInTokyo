@@ -11,6 +11,7 @@ public class FishCtrl : EnemyBase {
     Vector3 direction = Vector3.left;
 
     // 移動速度初期値
+    [SerializeField, Tooltip("敵の初期移動速度")]
     float moveInitializeSpeed = 0.5f;
 
     [SerializeField, Tooltip("敵のスケール")]
@@ -18,7 +19,7 @@ public class FishCtrl : EnemyBase {
 
 	// Use this for initialization
 	void Start () {
-        InitialSettings(0.8f, moveInitializeSpeed, transform.position.x, transform.position.y);
+        InitialSettings(enemyScale, moveInitializeSpeed, transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
