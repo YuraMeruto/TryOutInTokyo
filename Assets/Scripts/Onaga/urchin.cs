@@ -34,7 +34,7 @@ public class Urchin : EnemyBase
                 if (activeTimer >= 2.0f)
                 {
                     urchinAnimation.SetBool("ActiveFlg", true);
-                    urchinActive.SetActiveRecursively(true);
+                    //urchinActive.SetActiveRecursively(true);
                     status = 1;
                     collider.offset = ActiveColliderOffset;
                     collider.size = ActiveColliderSize;
@@ -45,7 +45,7 @@ public class Urchin : EnemyBase
                 if (activeTimer <= 0.0f)
                 {
                     urchinAnimation.SetBool("ActiveFlg", false);
-                    urchinActive.SetActiveRecursively(false);
+                    //urchinActive.SetActiveRecursively(false);
                     status = 0;
                     collider.offset = DefalutColliderOffset;
                     collider.size = DefalutColliderSize;
