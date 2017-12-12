@@ -16,6 +16,5 @@ abstract public class EnemyBase : MonoBehaviour {
     /// </summary>
     public virtual void EnemyMove()
     {
-        
     }
 }
