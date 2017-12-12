@@ -22,15 +22,16 @@ public class FishCtrl : EnemyBase {
         enemyPositionX = transform.position.x;
         enemyPositionY = transform.position.y;
 
-        // サイズ変更
-        transform.localScale = new Vector3(enemyScale,enemyScale);
-
         // 速度設定
         enemySpeed = moveInitializeSpeed;
     }
 
     // Update is called once per frame
     void Update () {
+        // デバック用？
+        // サイズ変更
+        transform.localScale = new Vector3(enemyScale, enemyScale);
+
         EnemyMove();
 
         // 削除
