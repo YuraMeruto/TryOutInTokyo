@@ -31,14 +31,17 @@ public class PlayerManager : MonoBehaviour {
     /******************************************************
      * クラス関数
      * ***************************************************/
-    void Awake()
+    void Start()
     {
         if (Instance != null) return;
-        else Instance = this;
+        else
+        {
+            Instance = this;
+        }
 
         myRigidbody = GetComponent<Rigidbody2D>();
     }
-	
+
 
     void OnTriggerEnter2D(Collider2D collider)
     {
