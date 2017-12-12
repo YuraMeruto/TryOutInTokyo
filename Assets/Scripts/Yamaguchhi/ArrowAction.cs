@@ -14,12 +14,23 @@ public class ArrowAction : MonoBehaviour {
 
     void Update()
     {
-        
         //矢印の回転
-        Vector2 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 rot = (vec - new Vector2(transform.position.x, transform.position.y)).normalized;
-        transform.rotation = Quaternion.FromToRotation(Vector3.up, rot);
+        if (Input.mousePosition.x < Camera.main.WorldToScreenPoint(transform.position).x)
+        {
+            Debug.Log("a");
+            Vector2 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 rot = (vec - new Vector2(transform.position.x, transform.position.y)).normalized;
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, rot);
+        }else if(Input.mousePosition.x >= Camera.main.WorldToScreenPoint(transform.position).x)
+        {
+            Debug.Log("b::"+"mouse:"+Input.mousePosition.x+" player:"+transform.position.x);
+            Vector2 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 rot = (-vec - new Vector2(transform.position.x, transform.position.y)).normalized;
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, rot);
+        }
         
+        
+
     }
     //---------------------------------------------------
     

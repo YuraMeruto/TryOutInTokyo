@@ -8,11 +8,13 @@ public class PlayerContoller : MonoBehaviour {
      * クラス変数
      * ********************************************/
     private Rigidbody2D myRigidbody;
-    private Vector2 playerVec;
+    private Vector2 playerVec;    
     private Vector2 clickPosDown, clickPosUp;
-    private float power = 1000.0f;
+    private float power = 10.0f;
+    private float pullDistance;
     private bool isAction = false;
     private GameObject arrow;
+    
 
     /***********************************************
      * クラス関数
@@ -62,8 +64,11 @@ public class PlayerContoller : MonoBehaviour {
             //飛ばす方向の計算
             playerVec = clickPosDown - clickPosUp;       
             playerVec.Normalize();
-            myRigidbody.AddForce(playerVec * power);
+
+            pullDistance = (clickPosDown - clickPosUp).magnitude;
+            Debug.Log(pullDistance);
+            myRigidbody.AddForce(playerVec * power*pullDistance);
         }
 	}
-    //-------------------------------------------
+    
 }
