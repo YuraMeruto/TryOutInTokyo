@@ -10,13 +10,11 @@ public class urchin : EnemyBase {
 
     public GameObject urchinActive;
 
-    // Use this for initialization
     void Start () {
         activeTimer = 0.0f;
         status = 0;
     }
 
-    // Update is called once per frame
     void Update() {
       switch (status)
         {
