@@ -14,10 +14,10 @@ using UnityEditor.SceneManagement;
 
 public class StageGeneration : MonoBehaviour
 {
-	[SerializeField]
+	[HideInInspector]
 	public Transform stageObjectsParent;
 
-	[SerializeField]
+	[HideInInspector]
 	public List<GameObject> stageObjects;
 
 	List<string[]> csvData = new List<string[]>();
@@ -38,7 +38,7 @@ public class StageGeneration : MonoBehaviour
 			for (int j = 0; j < csvData[i].Length; j++)
 			{
 				if (int.Parse(csvData[i][j]) != 0)
-					Instantiate(stageObjects[int.Parse(csvData[i][j])-1], stageObjectsParent).transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
+					Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent).transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
 			}
 		}
 	}
