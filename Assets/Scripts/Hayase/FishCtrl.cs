@@ -18,10 +18,17 @@ public class FishCtrl : EnemyBase {
     float moveInitializeSpeed = 0.5f;
 
     [SerializeField, Tooltip("敵のスケール")]
-    private float enemyScale;
+    private float enemyScale = 0.8f;
+
+    // アニメーション速度
+    [SerializeField]
+    float animationSpeed = 1.0f;
+
 
 	// Use this for initialization
-	void Start () {
+	void Start () { 
+        GetComponent<Animator>().speed = animationSpeed;
+
         InitialSettings(enemyScale, moveInitializeSpeed, transform.position.x, transform.position.y);
     }
 
@@ -34,7 +41,7 @@ public class FishCtrl : EnemyBase {
         EnemyMove();
 
         // 削除
-        if (transform.position.x < -10) Destroy(gameObject);
+        if (transform.position.x < -30) Destroy(gameObject);
 	}
 
     public override void EnemyMove()
