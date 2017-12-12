@@ -20,6 +20,7 @@ public class PlayerContoller : MonoBehaviour {
     void Awake()
     {
         arrow = transform.Find("Arrow").gameObject;
+        //test
     }
     // Use this for initialization
     void Start () {

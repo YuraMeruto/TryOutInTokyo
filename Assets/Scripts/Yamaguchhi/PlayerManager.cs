@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour {
      * クラス変数
      * ****************************************************/
     private bool isAction = false;
-    private Rigidbody2D myRigidbody;
+
 
     /******************************************************
      * プロパティ
@@ -17,16 +17,6 @@ public class PlayerManager : MonoBehaviour {
         get;
         private set;
     }
-
-    public bool IsAction
-    {
-        get { return isAction; }
-        set { isAction = value; }
-    }
-    public Rigidbody2D MyRigidbody
-    {
-        get { return myRigidbody; }
-    }
     /******************************************************
      * クラス関数
      * ***************************************************/
@@ -34,38 +24,23 @@ public class PlayerManager : MonoBehaviour {
     {
         if (Instance != null) return;
         else Instance = this;
-
-        myRigidbody = GetComponent<Rigidbody2D>();
+        
     }
 	// Use this for initialization
 	void Start () {
+<<<<<<< HEAD
         
+=======
+		
+>>>>>>> parent of 1b92547... ふじつぼに当たっている状態でのみ動かす実装
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-
-
-    void OnTriggerEnter2D(Collider2D collider)
+    void ActionSwitch()
     {
-        
-        switch (collider.gameObject.tag)
-        {
-            case "Hujitsubo":
-                Hujitsubo(collider.gameObject.transform);
-                break;
-            default:
-                break;
-        }        
-    }
-
-    void Hujitsubo(Transform pos)
-    {
-        Debug.Log("aaaaaa");
         isAction = true;
-        myRigidbody.velocity = Vector2.zero;
-        transform.position = pos.position;
     }
 }
