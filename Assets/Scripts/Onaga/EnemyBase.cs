@@ -4,12 +4,12 @@ using UnityEngine;
 
 abstract public class EnemyBase : MonoBehaviour {
 
-    public int EnemyType;
-    public int EnemyHp;
-    public int EnemyAttac;
-    public float EnemySpeed;
-    public float EnemyPositionX;
-    public float EnemyPositionY;      
+    public int enemyType;
+    public int enemyHp;
+    public int enemyAttac;
+    public float enemySpeed;
+    public float enemyPositionX;
+    public float enemyPositionY;      
 
     /// <summary>
     /// 敵移動
