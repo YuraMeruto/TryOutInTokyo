@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class ReadPlayerPref : MonoBehaviour
 {
-
     public static bool GetHasKey(string key)
     {
         return PlayerPrefs.HasKey(key);

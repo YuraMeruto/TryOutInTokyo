@@ -22,8 +22,11 @@ public class ButtonManager : MonoBehaviour
 	/// メインシーンへの遷移
 	/// </summary>
 	/// <param name="stageNum">遷移先のステージ番号</param>
-	public void ToGameScene(int stageNum)
+	public void ToGameScene(string stageName)
 	{
+		if (stageName != "Replay")
+			ReadPlayerPref.SetStringKey("PlayingStage", stageName);
+
 		SceneManager.LoadScene("Game");
 	}
 }
