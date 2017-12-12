@@ -24,10 +24,13 @@ public class FishCtrl : EnemyBase {
     [SerializeField]
     float animationSpeed = 1.0f;
 
+    // 管理用アニメータ
+    Animator anim;
 
 	// Use this for initialization
 	void Start () { 
-        GetComponent<Animator>().speed = animationSpeed;
+        anim = GetComponent<Animator>();
+        anim.speed = animationSpeed;
 
         InitialSettings(enemyScale, moveInitializeSpeed, transform.position.x, transform.position.y);
     }
@@ -35,8 +38,9 @@ public class FishCtrl : EnemyBase {
     // Update is called once per frame
     void Update () {
         //デバック用？
-        // サイズ変更
+        // サイズ変更, アニメーション速度変更
         transform.localScale = new Vector3(enemyScale, enemyScale);
+        anim.speed = animationSpeed;
 
         EnemyMove();
 
