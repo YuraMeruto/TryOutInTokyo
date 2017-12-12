@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 魚を制御するクラス
+/// </summary>
 public class FishCtrl : EnemyBase {
 
     // 管理用座標
@@ -15,23 +18,34 @@ public class FishCtrl : EnemyBase {
     float moveInitializeSpeed = 0.5f;
 
     [SerializeField, Tooltip("敵のスケール")]
-    private float enemyScale;
+    private float enemyScale = 0.8f;
+
+    // アニメーション速度
+    [SerializeField]
+    float animationSpeed = 1.0f;
+
+    // 管理用アニメータ
+    Animator anim;
 
 	// Use this for initialization
-	void Start () {
+	void Start () { 
+        anim = GetComponent<Animator>();
+        anim.speed = animationSpeed;
+
         InitialSettings(enemyScale, moveInitializeSpeed, transform.position.x, transform.position.y);
     }
 
     // Update is called once per frame
     void Update () {
         //デバック用？
-        // サイズ変更
+        // サイズ変更, アニメーション速度変更
         transform.localScale = new Vector3(enemyScale, enemyScale);
+        anim.speed = animationSpeed;
 
         EnemyMove();
 
         // 削除
-        if (transform.position.x < -10) Destroy(gameObject);
+        if (transform.position.x < -30) Destroy(gameObject);
 	}
 
     public override void EnemyMove()

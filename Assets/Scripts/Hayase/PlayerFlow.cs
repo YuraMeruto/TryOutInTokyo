@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーが波によって流されるスクリプトのクラスです。
+/// </summary>
 public class PlayerFlow : MonoBehaviour {
 
     // プレイヤー移動用
