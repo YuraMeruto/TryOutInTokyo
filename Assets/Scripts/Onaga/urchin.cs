@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class urchin : EnemyBase {
 
-    private float ActiveTimer;
+    private float activeTimer;
+
+    private int status;
 
     public GameObject urchinActive;
 
-    int status;
-
     // Use this for initialization
     void Start () {
-        ActiveTimer = 0.0f;
+        activeTimer = 0.0f;
         status = 0;
     }
 
@@ -21,16 +21,16 @@ public class urchin : EnemyBase {
       switch (status)
         {
             case 0:
-                ActiveTimer += Time.deltaTime;
-                if (ActiveTimer >= 2.0f)
+                activeTimer += Time.deltaTime;
+                if (activeTimer >= 2.0f)
                 {
                     urchinActive.SetActiveRecursively(true);
                     status = 1;
                 }
                 break;
             case 1:
-                ActiveTimer -= Time.deltaTime;
-                if (ActiveTimer <= 0.0f)
+                activeTimer -= Time.deltaTime;
+                if (activeTimer <= 0.0f)
                 {
                     urchinActive.SetActiveRecursively(false);
 
