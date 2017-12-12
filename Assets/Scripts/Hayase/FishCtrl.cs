@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 魚を制御するクラス
+/// </summary>
 public class FishCtrl : EnemyBase {
 
     // 管理用座標
