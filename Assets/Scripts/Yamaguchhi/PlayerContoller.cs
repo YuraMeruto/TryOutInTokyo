@@ -7,11 +7,11 @@ public class PlayerContoller : MonoBehaviour {
     /***********************************************
      * クラス変数
      * ********************************************/
-    private Vector2 playerVec;    
-    private Vector2 clickPosDown, clickPosUp;
-    private float power = 10.0f;
-    private float pullDistance;
-    private GameObject arrow;
+    private Vector2 playerVec; //飛ばす角度
+    private float power = 10.0f; // 飛ばす力
+    private Vector2 clickPosDown, clickPosUp; //ドラッグしたポジション  
+    private float pullDistance; // ドラッグした距離
+    private GameObject arrow; // 矢印
     
 
     /***********************************************
@@ -20,6 +20,7 @@ public class PlayerContoller : MonoBehaviour {
     void Awake()
     {
         arrow = transform.Find("Arrow").gameObject;
+        
     }
     // Use this for initialization
     void Start () {

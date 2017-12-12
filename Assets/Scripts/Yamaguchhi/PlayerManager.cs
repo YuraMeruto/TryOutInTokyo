@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour {
     /*******************************************************
@@ -37,16 +38,7 @@ public class PlayerManager : MonoBehaviour {
 
         myRigidbody = GetComponent<Rigidbody2D>();
     }
-	// Use this for initialization
-	void Start () {
-        
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -56,16 +48,26 @@ public class PlayerManager : MonoBehaviour {
             case "Hujitsubo":
                 Hujitsubo(collider.gameObject.transform);
                 break;
+            case "Goal":
+                myRigidbody.velocity = Vector2.zero;
+                SceneManager.LoadScene("Result");
+                break;
+            case "Enemy":
+                SceneManager.LoadScene("GameOver");
+                break;
             default:
                 break;
         }        
     }
-
+    /// <summary>
+    /// ふじつぼ処理
+    /// </summary>
+    /// <param name="pos"></param>
     void Hujitsubo(Transform pos)
     {
-        Debug.Log("aaaaaa");
         isAction = true;
         myRigidbody.velocity = Vector2.zero;
         transform.position = pos.position;
     }
+    //-------------------------------------
 }
