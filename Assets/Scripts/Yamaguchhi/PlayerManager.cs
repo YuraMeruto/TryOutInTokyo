@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour {
             Instance = this;
         }
 
-        myRigidbody = GetComponent<Rigidbody2D>();
+        myRigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
 
@@ -60,16 +60,25 @@ public class PlayerManager : MonoBehaviour {
                 break;
             default:
                 break;
-        }        
+        }
+		myRigidbody.simulated = true;
     }
-    /// <summary>
-    /// ふじつぼ処理
-    /// </summary>
-    /// <param name="pos"></param>
-    void Hujitsubo(Transform pos)
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		gameObject.GetComponent<SpriteRenderer>().enabled = true;
+	}
+	/// <summary>
+	/// ふじつぼ処理
+	/// </summary>
+	/// <param name="pos"></param>
+	void Hujitsubo(Transform pos)
     {
+		gameObject.GetComponent<SpriteRenderer>().enabled = false;
         isAction = true;
-        myRigidbody.velocity = Vector2.zero;
+		myRigidbody.velocity = Vector2.zero;
+		myRigidbody.simulated = false;
+		transform.rotation = Quaternion.identity;
         transform.position = pos.position;
     }
     //-------------------------------------
