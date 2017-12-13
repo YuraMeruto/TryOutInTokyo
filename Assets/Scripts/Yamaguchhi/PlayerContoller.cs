@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerContoller : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class PlayerContoller : MonoBehaviour {
     private Vector2 clickPosDown, clickPosUp; //ドラッグしたポジション  
     private float pullDistance; // ドラッグした距離
     private GameObject arrow; // 矢印
+	
+	private Slider meter;
     
 
     /***********************************************
@@ -24,7 +27,8 @@ public class PlayerContoller : MonoBehaviour {
     void Awake()
     {
         arrow = transform.Find("Arrow").gameObject;
-        
+
+		meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
     }
     // Use this for initialization
     void Start () {
@@ -82,6 +86,8 @@ public class PlayerContoller : MonoBehaviour {
             }
         
         }
+
+		meter.value = transform.position.x;
 	}
     
 }

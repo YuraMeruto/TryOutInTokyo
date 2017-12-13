@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -21,6 +22,8 @@ public class StageGeneration : MonoBehaviour
 
 	[HideInInspector]
 	public List<GameObject> stageObjects;
+
+	public Slider meter;
 
 	List<string[]> csvData = new List<string[]>();
 
@@ -39,10 +42,21 @@ public class StageGeneration : MonoBehaviour
 		{
 			for (int j = 0; j < csvData[i].Length; j++)
 			{
+				GameObject tmp;
 
 				if (int.Parse(csvData[i][j]) != 0)
 				{
-					Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent).transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
+					tmp = Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent);
+					tmp.transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
+
+					if(int.Parse(csvData[i][j])==7)
+					{
+						meter.minValue = tmp.transform.position.x;
+					}
+					if(int.Parse(csvData[i][j])==4)
+					{
+						meter.maxValue = tmp.transform.position.x;
+					}
 				}
 				
 			}
