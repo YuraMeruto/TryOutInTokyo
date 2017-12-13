@@ -16,7 +16,7 @@ public class ArrowAction : MonoBehaviour {
     {
         //矢印の回転    
         Vector2 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 rot = (vec - new Vector2(-vec.x, -vec.y)).normalized;
+        Vector2 rot = (vec/2 - new Vector2(-vec.x, -vec.y)).normalized;
         transform.rotation = Quaternion.FromToRotation(Vector2.up, rot);
     }
     //---------------------------------------------------
