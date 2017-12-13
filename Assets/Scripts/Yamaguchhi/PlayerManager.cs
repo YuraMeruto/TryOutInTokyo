@@ -10,7 +10,11 @@ public class PlayerManager : MonoBehaviour {
     private bool isAction = false;
     private Rigidbody2D myRigidbody;
     private Vector2 direction;
+    [SerializeField,Tooltip("プレイヤーのAnimator")]
     private Animator anim;
+    private Animator hujiAnim;
+    private PlayerFlow flow;
+    private GameObject gameOverPanel;
 
     /******************************************************
      * プロパティ
@@ -38,12 +42,16 @@ public class PlayerManager : MonoBehaviour {
         if (Instance != null) return;
         else
         {
-            Debug.Log("aaaa");
+
             Instance = this;
         }
 
         myRigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        flow = GetComponent<PlayerFlow>();
+
+        gameOverPanel = GameObject.Find("Canvas/GameOver");
+        gameOverPanel.SetActive(false);
         
         direction = gameObject.transform.localScale;
         direction.x *= -1;
@@ -64,7 +72,8 @@ public class PlayerManager : MonoBehaviour {
                 SceneManager.LoadScene("Result");
                 break;
             case "Enemy":
-                SceneManager.LoadScene("GameOver");
+                //SceneManager.LoadScene("GameOver");
+                gameOverPanel.SetActive(true);
                 break;
             default:
                 break;
@@ -76,16 +85,22 @@ public class PlayerManager : MonoBehaviour {
 	{
 		if(collider.gameObject.tag == "Hujitsubo")
         {
+            flow.isFlow = true;
+            hujiAnim.speed /= 1.5f;
             anim.SetBool("IsPlayer", true);
         }
 	}
 	/// <summary>
 	/// ふじつぼ処理
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">ふじつぼのTransform</param>
 	void Hujitsubo(Transform pos)
     {
+        hujiAnim = pos.gameObject.GetComponent<Animator>();
+        hujiAnim.speed *= 1.5f;
+
         anim.SetBool("IsPlayer", false);
+        flow.isFlow = false;
         isAction = true;
 		myRigidbody.velocity = Vector2.zero;
 		myRigidbody.simulated = false;
