@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e3dc2cd116b2898409e89750f7e1c666
-timeCreated: 1513068998
+timeCreated: 1513130860
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -76,12 +76,12 @@ TextureImporter:
       name: uni 1_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 153
         y: 0
         width: 1181
         height: 1181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -89,12 +89,12 @@ TextureImporter:
       name: uni 1_1
       rect:
         serializedVersion: 2
-        x: 1181
+        x: 1172
         y: 0
         width: 1181
         height: 1181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -102,12 +102,12 @@ TextureImporter:
       name: uni 1_2
       rect:
         serializedVersion: 2
-        x: 2362
+        x: 2291
         y: 0
         width: 1181
         height: 1181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
