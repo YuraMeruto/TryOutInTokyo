@@ -14,7 +14,7 @@ public class OFade : MonoBehaviour
 
     void Start()
     {
-        fadeSpeed = 3.0f / 255.0f;
+        fadeSpeed = 1.0f / 255.0f;
         red = GetComponent<Image>().color.r;
         green = GetComponent<Image>().color.g;
         blue = GetComponent<Image>().color.b;
