@@ -17,7 +17,6 @@ public class Octopus : EnemyBase {
     void Update()
     {
         cameraPosition.x += moveSpeed;
-        Debug.Log("cameraPosition.x" + cameraPosition.x);
         mainCamera.transform.position = new Vector3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
     }
 }
