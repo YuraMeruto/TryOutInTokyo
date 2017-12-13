@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class OFade : MonoBehaviour
 {
+    public float fadeSpeed;
     private bool fadeFlg;
     private float alfa = 0.0f;
     float red, green, blue;
@@ -13,6 +14,7 @@ public class OFade : MonoBehaviour
 
     void Start()
     {
+        fadeSpeed = 3.0f / 255.0f;
         red = GetComponent<Image>().color.r;
         green = GetComponent<Image>().color.g;
         blue = GetComponent<Image>().color.b;
@@ -33,6 +35,6 @@ public class OFade : MonoBehaviour
     public void FadePanel()
     {
         GetComponent<Image>().color = new Color(red, green, blue, alfa);
-        alfa += Time.deltaTime;
+        alfa += fadeSpeed;
     }
 }
