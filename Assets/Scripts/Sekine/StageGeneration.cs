@@ -25,10 +25,13 @@ public class StageGeneration : MonoBehaviour
 
 	public Slider meter;
 
+	public GameObject gameOverPanel;
+
 	List<string[]> csvData = new List<string[]>();
 
 	void Start()
 	{
+		Debug.Log(ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage")));
 		TextAsset csv = Resources.Load("CSV/" + ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage"))) as TextAsset;
 		StringReader reader = new StringReader(csv.text);
 
@@ -49,11 +52,11 @@ public class StageGeneration : MonoBehaviour
 					tmp = Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent);
 					tmp.transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
 
-					if(int.Parse(csvData[i][j])==7)
+					if(int.Parse(csvData[i][j])==1)
 					{
 						meter.minValue = tmp.transform.position.x;
 					}
-					if(int.Parse(csvData[i][j])==4)
+					if(int.Parse(csvData[i][j])==2)
 					{
 						meter.maxValue = tmp.transform.position.x;
 					}
@@ -61,6 +64,11 @@ public class StageGeneration : MonoBehaviour
 				
 			}
 		}
+	}
+
+	public void ShowPanel()
+	{
+		gameOverPanel.SetActive(true);
 	}
 
 	#if UNITY_EDITOR
