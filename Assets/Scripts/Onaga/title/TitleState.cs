@@ -7,7 +7,7 @@ public class TitleState : MonoBehaviour
 
     private bool fadeFlg;
     private float red, green, blue, alfa;
-    private float fadeSeed = 2.0f;
+    private float fadeSeed = 2.0f / 255.0f;
     private float alfaMin = 0.0f;
     private float alfaMax = 1.0f;
     private int status = 0;
@@ -34,11 +34,11 @@ public class TitleState : MonoBehaviour
         switch (status)
         {
             case 0:
-                alfa += fadeSeed / 255.0f;
+                alfa += fadeSeed;
                 if (alfa >= alfaMax) status = 1;
                 break;
             case 1:
-                alfa -= fadeSeed / 255.0f;
+                alfa -= fadeSeed;
                 if (alfa <= alfaMin) status = 0;
                 break;
 
