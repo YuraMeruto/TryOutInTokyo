@@ -69,7 +69,7 @@ public class PlayerContoller : MonoBehaviour {
                 //ドラッグした距離の計算
                 pullDistance = (clickPosDown - clickPosUp).magnitude;
 
-                power = pullDistance * 2.0f;
+                power = pullDistance * 3.0f;
                 Debug.Log(power);
 
                 if(power >= maxPower)
@@ -79,7 +79,7 @@ public class PlayerContoller : MonoBehaviour {
                 {
                     return;
                 }
-
+                Debug.Log(power);
                 //飛ばす処理
                 PlayerManager.Instance.MyRigidbody.AddForce(playerVec * power);
                 PlayerManager.Instance.IsAction = false;
