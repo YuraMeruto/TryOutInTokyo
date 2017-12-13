@@ -38,6 +38,7 @@ public class PlayerManager : MonoBehaviour {
         if (Instance != null) return;
         else
         {
+            Debug.Log("aaaa");
             Instance = this;
         }
 
