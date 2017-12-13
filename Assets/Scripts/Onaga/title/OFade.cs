@@ -11,7 +11,6 @@ public class OFade : MonoBehaviour
 
     //public float fadeSpeed = 0.f;
 
-    // Use this for initialization
     void Start()
     {
         red = GetComponent<Image>().color.r;
@@ -35,6 +34,5 @@ public class OFade : MonoBehaviour
     {
         GetComponent<Image>().color = new Color(red, green, blue, alfa);
         alfa += Time.deltaTime;
-        Debug.Log("alfa" + alfa);
     }
 }

@@ -5,13 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class OButton : MonoBehaviour
 {
-    public GameObject panel;
     private float sceneChange = 0.0f;
     private bool sceneFlg = false;
 
-    void Start()
-    {
-    }
     void Update()
     {
         if (Input.GetMouseButton(0))
