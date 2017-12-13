@@ -10,8 +10,8 @@ public class Urchin : EnemyBase
     private int status;
 
     Animator urchinAnimation;
-    public BoxCollider2D collider;
-    GameObject mainCamera;
+    public BoxCollider2D boxCollider;
+	GameObject mainCamera;
 
     //ウニのサイズ・座標
     private Vector2 ActiveColliderSize = new Vector2(7.8f, 7.0f);
@@ -19,11 +19,11 @@ public class Urchin : EnemyBase
     private Vector2 DefalutColliderSize = new Vector2(5.3f, 5.3f);
 
     private Vector2 uchinPosition;
-    private Vector2 cameraPosition;
+	private Vector2 cameraPosition;
 
     void Start()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+		mainCamera = GameObject.Find("Main Camera");
         urchinAnimation = GetComponent<Animator>();
         activeTimer = 0.0f;
         status = 0;
@@ -48,17 +48,17 @@ public class Urchin : EnemyBase
                     this.tag = "Enemy";
                     urchinAnimation.SetBool("ActiveFlg", true);
                     status = 1;
-                    collider.size = ActiveColliderSize;
+                    boxCollider.size = ActiveColliderSize;
                 }
                 break;
             case 1:
                 activeTimer -= Time.deltaTime;
                 if (activeTimer <= 0.0f)
                 {
-                    this.tag = "FrendUrchin";
+                    //this.tag = "FrendUrchin";
                     urchinAnimation.SetBool("ActiveFlg", false);
                     status = 0;
-                    collider.size = DefalutColliderSize;
+                    boxCollider.size = DefalutColliderSize;
                 }
                 break;
 
