@@ -5,19 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class OButton : MonoBehaviour
 {
-    private float sceneChange = 0.0f;
+    public OFade fade;
+    private float SceneChengePoint = 1.0f;
+    private float fadeWiteTime = 0.0f;
     private bool sceneFlg = false;
+    public float fadeSpeed;
 
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
+            fadeSpeed = fade.fadeSpeed;
             sceneFlg = true;
         };
         if (sceneFlg)
         {
-            sceneChange += Time.deltaTime;
-            if (sceneChange > 1.0f)
+            fadeWiteTime += fadeSpeed;
+            if (fadeWiteTime > SceneChengePoint)
             {
                 OnClick();
             }
