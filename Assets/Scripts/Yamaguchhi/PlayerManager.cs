@@ -15,6 +15,9 @@ public class PlayerManager : MonoBehaviour {
     private Animator hujiAnim;
     private PlayerFlow flow;
     private GameObject gameOverPanel;
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip[] clip;
 
     /******************************************************
      * プロパティ
@@ -49,13 +52,11 @@ public class PlayerManager : MonoBehaviour {
         myRigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         flow = GetComponent<PlayerFlow>();
-
+        audio = GetComponent<AudioSource>();
         gameOverPanel = GameObject.Find("Canvas/GameOver");
         gameOverPanel.SetActive(false);
         
-        direction = gameObject.transform.localScale;
-        direction.x *= -1;
-        gameObject.transform.localScale = direction;
+        
     }
 
 
@@ -72,10 +73,22 @@ public class PlayerManager : MonoBehaviour {
                 SceneManager.LoadScene("Result");
                 break;
             case "Enemy":
-                //SceneManager.LoadScene("GameOver");
+                AudioSource eAudio = collider.gameObject.GetComponent<AudioSource>();
+                /*if (eAudio.clip == null)
+                {
+                    eAudio.clip = clip[2];
+                    eAudio.Play();
+                }
+                else
+                {
+                    eAudio.Play();
+                }*/
+                
                 gameOverPanel.SetActive(true);
                 break;
             default:
+                //audio.clip = clip[1];
+                //audio.Play();
                 break;
         }
 		myRigidbody.simulated = true;
@@ -96,6 +109,8 @@ public class PlayerManager : MonoBehaviour {
 	/// <param name="pos">ふじつぼのTransform</param>
 	void Hujitsubo(Transform pos)
     {
+        //audio.clip = clip[0];
+        //audio.Play();
         hujiAnim = pos.gameObject.GetComponent<Animator>();
         hujiAnim.speed *= 1.5f;
 

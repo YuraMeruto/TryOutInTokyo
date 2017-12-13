@@ -17,23 +17,20 @@ public class PlayerContoller : MonoBehaviour {
     private Vector2 clickPosDown, clickPosUp; //ドラッグしたポジション  
     private float pullDistance; // ドラッグした距離
     private GameObject arrow; // 矢印
-	
+    private AudioSource audio;
+    private AudioClip[] clip;
 	private Slider meter;
     
 
     /***********************************************
      * クラス関数
      * ********************************************/
-    void Awake()
-    {
-        arrow = transform.Find("Arrow").gameObject;
-
-		meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
-    }
     // Use this for initialization
     void Start () {
-		
-	}
+        arrow = transform.Find("Arrow").gameObject;
+        meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
+        audio = GetComponent<AudioSource>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,7 +42,8 @@ public class PlayerContoller : MonoBehaviour {
                 //タッチした場所のポジション
                 clickPosDown = Input.mousePosition;
                 arrow.SetActive(true);
-
+                //audio.clip = clip[0];
+                //audio.Play();
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -83,6 +81,8 @@ public class PlayerContoller : MonoBehaviour {
                 //飛ばす処理
                 PlayerManager.Instance.MyRigidbody.AddForce(playerVec * power);
                 PlayerManager.Instance.IsAction = false;
+                //audio.clip = clip[1];
+                //audio.Play();
             }
         
         }
