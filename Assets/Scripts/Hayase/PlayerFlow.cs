@@ -12,7 +12,7 @@ public class PlayerFlow : MonoBehaviour {
 
     // 流す際の力
     [SerializeField]
-    float flowForce = 50f;
+    float flowForce = 5.0f;
 
     // 流されるときの最大速度
     [SerializeField]
@@ -37,7 +37,7 @@ public class PlayerFlow : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (Input.GetMouseButtonUp(0)) isFlow = true;
-
+        Debug.Log(flow);
         if (flow)
         {
             // 左へ
