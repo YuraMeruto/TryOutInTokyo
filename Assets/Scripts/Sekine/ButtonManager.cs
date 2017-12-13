@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+	[SerializeField]
+	GameObject panel;
+
 	/// <summary>
 	/// シーン遷移
 	/// </summary>
@@ -22,11 +25,15 @@ public class ButtonManager : MonoBehaviour
 	/// メインシーンへの遷移
 	/// </summary>
 	/// <param name="stageNum">遷移先のステージ番号</param>
-	public void ToGameScene(string stageName)
+	public void ToGameScene()
 	{
-		if (stageName != "Replay")
-			ReadPlayerPref.SetStringKey("PlayingStage", stageName);
-
 		SceneManager.LoadScene("Game");
+	}
+
+	public void SwitchPanel(string stageName)
+	{
+		panel.SetActive(!panel.activeSelf);
+
+		ReadPlayerPref.SetStringKey("PlayingStage", stageName);
 	}
 }
