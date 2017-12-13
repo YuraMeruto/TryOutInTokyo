@@ -19,6 +19,8 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField]
     private AudioClip[] clip;
 
+	private GameObject loadManager;
+
     /******************************************************
      * プロパティ
      * ***************************************************/
@@ -53,8 +55,7 @@ public class PlayerManager : MonoBehaviour {
         anim = GetComponent<Animator>();
         flow = GetComponent<PlayerFlow>();
         audio = GetComponent<AudioSource>();
-        gameOverPanel = GameObject.Find("Canvas/GameOver");
-        gameOverPanel.SetActive(false);
+        loadManager = GameObject.Find("Manager/LoadManager");
         
         
     }
@@ -74,17 +75,17 @@ public class PlayerManager : MonoBehaviour {
                 break;
             case "Enemy":
                 AudioSource eAudio = collider.gameObject.GetComponent<AudioSource>();
-                /*if (eAudio.clip == null)
-                {
-                    eAudio.clip = clip[2];
-                    eAudio.Play();
-                }
-                else
-                {
-                    eAudio.Play();
-                }*/
-                
-                gameOverPanel.SetActive(true);
+			/*if (eAudio.clip == null)
+			{
+				eAudio.clip = clip[2];
+				eAudio.Play();
+			}
+			else
+			{
+				eAudio.Play();
+			}*/
+
+			loadManager.GetComponent<StageGeneration>().ShowPanel();
                 break;
             default:
                 //audio.clip = clip[1];
