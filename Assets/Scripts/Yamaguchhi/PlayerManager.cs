@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour {
      * ****************************************************/
     private bool isAction = false;
     private Rigidbody2D myRigidbody;
+    private Vector2 direction;
+    private Animator anim;
 
     /******************************************************
      * プロパティ
@@ -40,6 +42,11 @@ public class PlayerManager : MonoBehaviour {
         }
 
         myRigidbody = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        
+        direction = gameObject.transform.localScale;
+        direction.x *= -1;
+        gameObject.transform.localScale = direction;
     }
 
 
@@ -60,16 +67,28 @@ public class PlayerManager : MonoBehaviour {
                 break;
             default:
                 break;
-        }        
+        }
+		myRigidbody.simulated = true;
     }
-    /// <summary>
-    /// ふじつぼ処理
-    /// </summary>
-    /// <param name="pos"></param>
-    void Hujitsubo(Transform pos)
+
+	private void OnTriggerExit2D(Collider2D collider)
+	{
+		if(collider.gameObject.tag == "Hujitsubo")
+        {
+            anim.SetBool("IsPlayer", true);
+        }
+	}
+	/// <summary>
+	/// ふじつぼ処理
+	/// </summary>
+	/// <param name="pos"></param>
+	void Hujitsubo(Transform pos)
     {
+        anim.SetBool("IsPlayer", false);
         isAction = true;
-        myRigidbody.velocity = Vector2.zero;
+		myRigidbody.velocity = Vector2.zero;
+		myRigidbody.simulated = false;
+		transform.rotation = Quaternion.identity;
         transform.position = pos.position;
     }
     //-------------------------------------

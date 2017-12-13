@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerContoller : MonoBehaviour {
 
@@ -8,10 +9,16 @@ public class PlayerContoller : MonoBehaviour {
      * クラス変数
      * ********************************************/
     private Vector2 playerVec; //飛ばす角度
-    private float power = 10.0f; // 飛ばす力
+    private float power; // 飛ばす力
+    [SerializeField, Tooltip("飛ばす力の最大値")]
+    private float maxPower = 500.0f;
+    [SerializeField, Tooltip("飛ばす力の最小値")]
+    private float minPower = 200.0f;
     private Vector2 clickPosDown, clickPosUp; //ドラッグしたポジション  
     private float pullDistance; // ドラッグした距離
     private GameObject arrow; // 矢印
+	
+	private Slider meter;
     
 
     /***********************************************
@@ -20,7 +27,8 @@ public class PlayerContoller : MonoBehaviour {
     void Awake()
     {
         arrow = transform.Find("Arrow").gameObject;
-        
+
+		meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
     }
     // Use this for initialization
     void Start () {
@@ -60,12 +68,26 @@ public class PlayerContoller : MonoBehaviour {
                 playerVec.Normalize();
                 //ドラッグした距離の計算
                 pullDistance = (clickPosDown - clickPosUp).magnitude;
+
+                power = pullDistance * 2.0f;
+                Debug.Log(power);
+
+                if(power >= maxPower)
+                {
+                    power = maxPower;
+                }else if(power < minPower)
+                {
+                    return;
+                }
+
                 //飛ばす処理
-                PlayerManager.Instance.MyRigidbody.AddForce(playerVec * power * pullDistance);
+                PlayerManager.Instance.MyRigidbody.AddForce(playerVec * power);
                 PlayerManager.Instance.IsAction = false;
             }
         
         }
+
+		meter.value = transform.position.x;
 	}
     
 }
