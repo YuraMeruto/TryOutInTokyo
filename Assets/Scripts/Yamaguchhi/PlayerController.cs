@@ -26,8 +26,7 @@ public class PlayerController : MonoBehaviour {
     PlayerManager playermanagerScript;
     [SerializeField, Tooltip("プレイヤーPlayerFlowのAnimator")]
     PlayerFlow flow;
-    [SerializeField, Tooltip("タップした時に泳ぐ力")]
-    private float swimPower = 100000.0f;
+
     /***********************************************
      * クラス関数
      * ********************************************/
@@ -86,15 +85,7 @@ public class PlayerController : MonoBehaviour {
             }
             
         }
-        //タップしたときに少し前へ進む
-        if (flow.isFlow)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                playermanagerScript.MyRigidbody.AddForce(new Vector2(swimPower,0));
-            }
-
-        }
+        
         meter.value = transform.position.x;
     }
 
@@ -103,4 +94,5 @@ public class PlayerController : MonoBehaviour {
         audio.clip = clip[number];
         audio.Play();
     }
+
 }
