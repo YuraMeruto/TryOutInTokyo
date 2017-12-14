@@ -8,6 +8,8 @@ public class Urchin : EnemyBase
     private float distance;
     private int status;
 
+
+    AudioSource ActiveSE;
     Animator urchinAnimation;
     public CircleCollider2D circleCollider;
 	GameObject mainCamera;
@@ -25,7 +27,8 @@ public class Urchin : EnemyBase
 
     void Start()
     {
-		mainCamera = GameObject.Find("Main Camera");
+        ActiveSE = GetComponent<AudioSource>();
+        mainCamera = GameObject.Find("Main Camera");
         urchinAnimation = GetComponent<Animator>();
         activeTimer = 0.0f;
         status = 0;
@@ -47,7 +50,8 @@ public class Urchin : EnemyBase
                 activeTimer += Time.deltaTime;
                 if (activeTimer >= 2.0f)
                 {
-                    this.tag = "Enemy";
+                    //this.tag = "Enemy";
+                    ActiveSE.PlayOneShot(ActiveSE.clip);
                     urchinAnimation.SetBool("ActiveFlg", true);
                     status = 1;
                     circleCollider.radius = ActiveColliderSize;
