@@ -82,6 +82,7 @@ public class PlayerManager : MonoBehaviour
                         playerControlerScript.SePlay(4);
                         break;
                 }
+                playerControlerScript.enabled = false;
                 loadManager.GetComponent<StageGeneration>().ShowPanel();
                 break;
             default:
