@@ -22,6 +22,9 @@ public class BackGroundMove : MonoBehaviour
 	[SerializeField]
 	GameObject[] endPointBack = new GameObject[3];
 
+	[SerializeField]
+	GameObject bubble;
+
 	void Start()
 	{
 		
@@ -30,6 +33,11 @@ public class BackGroundMove : MonoBehaviour
 	public void BackMove()
 	{
 		BackGround.transform.position += new Vector3(0.01f, 0.0f, 0.0f);
+
+		bubble.transform.position -= new Vector3(0.1f, 0.0f, 0.0f);
+
+		if (mainCamera.transform.position.x - bubble.transform.position.x > 15)
+			bubble.transform.position =mainCamera.transform.position +  new Vector3(15.0f+Random.Range(0.0f,20.0f), 0.0f, 10.0f);
 
 		for (int i = 0; i < 3; i++)
 		{
