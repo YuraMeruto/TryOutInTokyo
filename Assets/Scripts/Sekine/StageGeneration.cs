@@ -27,6 +27,8 @@ public class StageGeneration : MonoBehaviour
 
 	public GameObject gameOverPanel;
 
+	public GameObject player;
+
 	List<string[]> csvData = new List<string[]>();
 
 	void Start()
@@ -55,6 +57,7 @@ public class StageGeneration : MonoBehaviour
 					if(int.Parse(csvData[i][j])==1)
 					{
 						meter.minValue = tmp.transform.position.x;
+						Instantiate(player, tmp.transform.position, Quaternion.identity);
 					}
 					if(int.Parse(csvData[i][j])==2)
 					{
