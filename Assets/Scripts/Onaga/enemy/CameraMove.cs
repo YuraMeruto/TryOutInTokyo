@@ -10,6 +10,12 @@ public class CameraMove : MonoBehaviour
 
 	private bool start = false;
 
+	[SerializeField]
+	private BackGroundMove backGround;
+
+	[SerializeField]
+	private GameObject tutorial;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -23,12 +29,15 @@ public class CameraMove : MonoBehaviour
 		{
 			cameraPosition.x += moveSpeed;
 			transform.position = new Vector3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+			backGround.BackMove();
 		}
 	}
 
 	public void CameraMoveStart()
 	{
 		start = true;
+		tutorial.SetActive(false);
 	}
 
 	public bool IsStart()

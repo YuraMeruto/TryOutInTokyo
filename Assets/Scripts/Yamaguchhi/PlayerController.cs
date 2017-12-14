@@ -26,7 +26,10 @@ public class PlayerController : MonoBehaviour {
     PlayerManager playermanagerScript;
     [SerializeField, Tooltip("プレイヤーPlayerFlowのAnimator")]
     PlayerFlow flow;
-
+    [SerializeField, Tooltip("プレイヤーのAnimator")]
+    private Animator anim;
+    [SerializeField]
+    private GameObject hujitsuboBack;
 	private CameraMove cameraMove;
 
     /***********************************************
@@ -42,14 +45,19 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        //ふじつぼに入っている状態でのみ飛ぶ
         if (playermanagerScript.IsAction)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 //タッチした場所のポジション
                 clickPosDown = Input.mousePosition;
+                //矢印表示
                 arrow.SetActive(true);
+                //引っ張った時のSE
                 SePlay(0);
+                //プレイヤーの後ろのふじつぼを非表示
+                hujitsuboBack.SetActive(false);
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -60,10 +68,14 @@ public class PlayerController : MonoBehaviour {
 				}
                 //離した場所のポジション
                 clickPosUp = Input.mousePosition;
+                //矢印非表示
                 arrow.SetActive(false);
+                
 
                 if (clickPosDown == clickPosUp)
                 {
+                    //プレイヤーの後ろのふじつぼを表示
+                    hujitsuboBack.SetActive(true);
                     //指を離した場所が同じ場所なら処理抜ける
                     return;
                 }
@@ -73,9 +85,9 @@ public class PlayerController : MonoBehaviour {
                 playerVec.Normalize();
                 //ドラッグした距離の計算
                 pullDistance = (clickPosDown - clickPosUp).magnitude;
-
+                //飛ばす力の計算
                 power = pullDistance * 3.0f;
-                Debug.Log(power);
+                
 
                 if (power >= maxPower)
                 {
@@ -84,13 +96,22 @@ public class PlayerController : MonoBehaviour {
                 }
                 else if (power < minPower)
                 {
+                    //プレイヤーの後ろのふじつぼを表示
+                    hujitsuboBack.SetActive(true);
                     //速度が低いと発射しない
                     return;
                 }
                 //飛ばす処理
                 playermanagerScript.MyRigidbody.AddForce(playerVec * power);
+                //ふじつぼに入っていない時に飛ばせないようにする
                 playermanagerScript.IsAction = false;
-                SePlay(1);             
+                //飛ぶ時のSE
+                SePlay(1);
+                //飛んでいる時のアニメーション
+                anim.SetBool("IsPlayer", true);
+                
+                //流れを再開
+                flow.isFlow = true;
             }
             
         }
