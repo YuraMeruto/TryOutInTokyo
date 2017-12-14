@@ -52,6 +52,7 @@ public class PlayerManager : MonoBehaviour
         switch (collider.gameObject.tag)
         {
             case "Wall":
+                //壁に当たった時のSE
                 playerControlerScript.SePlay(3);
                 break;
         }
@@ -66,6 +67,7 @@ public class PlayerManager : MonoBehaviour
             case "Hujitsubo":
             case "HujitsuboReverse":
                 Hujitsubo(collider.gameObject.transform,collider.gameObject.tag);
+                //ふじつぼに入った時のSE
                 playerControlerScript.SePlay(2);
                 break;
             case "Goal":
@@ -82,6 +84,7 @@ public class PlayerManager : MonoBehaviour
                         playerControlerScript.SePlay(4);
                         break;
                 }
+                //操作不能にする
                 playerControlerScript.enabled = false;
                 loadManager.GetComponent<StageGeneration>().ShowPanel();
                 break;
@@ -95,11 +98,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (collider.gameObject.tag == "Hujitsubo"||collider.gameObject.tag == "HujitsuboReverse")
         {
-            hujitsuboBack.SetActive(false);
-            flow.isFlow = true;
-            anim.SetBool("IsPlayer", true);
             collider.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", false);
-            transform.parent = null;
         }
     }
 
@@ -109,18 +108,21 @@ public class PlayerManager : MonoBehaviour
     /// <param name="pos">ふじつぼのTransform</param>
     void Hujitsubo(Transform pos,string tag)
     {
-        
+        //プレイヤーの後ろにあるふじつぼを消す
         hujitsuboBack.SetActive(true);
+        //入っているふじつぼのアニメーションを変更
         pos.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", true);
+        //ふじつぼに入っている状態のアニメーションに変更
         anim.SetBool("IsPlayer", false);
+        //流れを止める
         flow.isFlow = false;
-        Debug.Log(flow.isFlow);
+        //飛べるようにする
         isAction = true;
+
+        //プレイヤーをふじつぼのポジションに固定
         myRigidbody.velocity = Vector2.zero;
         myRigidbody.simulated = false;
         transform.rotation = Quaternion.identity;
-        //transform.parent = pos;
-        //transform.position = new Vector2(pos.position.x,);
         Transform playerSpot = pos.Find("PlayerSpot");
         transform.position = playerSpot.position;
         if(tag == "HujitsuboReverse")
