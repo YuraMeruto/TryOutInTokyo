@@ -54,6 +54,7 @@ public class PlayerManager : MonoBehaviour
             case "Wall":
                 //壁に当たった時のSE
                 playerControlerScript.SePlay(3);
+                anim.SetBool("IsZitabata", true);
                 break;
         }
     }
@@ -108,6 +109,7 @@ public class PlayerManager : MonoBehaviour
     /// <param name="pos">ふじつぼのTransform</param>
     void Hujitsubo(Transform pos,string tag)
     {
+        anim.SetBool("IsZitabata", false);
         //プレイヤーの後ろにあるふじつぼを消す
         hujitsuboBack.SetActive(true);
         //入っているふじつぼのアニメーションを変更
