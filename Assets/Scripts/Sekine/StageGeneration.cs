@@ -15,98 +15,112 @@ using UnityEditor.SceneManagement;
 
 public class StageGeneration : MonoBehaviour
 {
-	public GameObject mainCamera;
+    public GameObject mainCamera;
 
-	[HideInInspector]
-	public Transform stageObjectsParent;
+    [HideInInspector]
+    public Transform stageObjectsParent;
 
-	[HideInInspector]
-	public List<GameObject> stageObjects;
+    [HideInInspector]
+    public List<GameObject> stageObjects;
 
-	public Slider meter;
+    public Slider meter;
 
-	public GameObject gameOverPanel;
+    public GameObject gameOverPanel;
 
-	public GameObject player;
+    public GameObject player;
 
-	List<string[]> csvData = new List<string[]>();
+    List<string[]> csvData = new List<string[]>();
 
-	void Start()
-	{
-		Debug.Log(ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage")));
-		TextAsset csv = Resources.Load("CSV/" + ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage"))) as TextAsset;
-		StringReader reader = new StringReader(csv.text);
+    void Start()
+    {
+        Debug.Log(ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage")));
+        TextAsset csv = Resources.Load("CSV/" + ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage"))) as TextAsset;
+        StringReader reader = new StringReader(csv.text);
 
-		while (reader.Peek() > -1)
-		{
-			string line = reader.ReadLine();
-			csvData.Add(line.Split(','));
-		}
+        while (reader.Peek() > -1)
+        {
+            string line = reader.ReadLine();
+            csvData.Add(line.Split(','));
+        }
 
-		for (int i = 0; i < csvData.Count; i++)
-		{
-			for (int j = 0; j < csvData[i].Length; j++)
-			{
-				GameObject tmp;
+        for (int i = 0; i < csvData.Count; i++)
+        {
+            for (int j = 0; j < csvData[i].Length; j++)
+            {
+                GameObject tmp;
 
-				if (int.Parse(csvData[i][j]) != 0)
-				{
-					tmp = Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent);
-					tmp.transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
+                if (int.Parse(csvData[i][j]) != 0)
+                {
+                    tmp = Instantiate(stageObjects[int.Parse(csvData[i][j]) - 1], stageObjectsParent);
+                    SetName(ref tmp,int.Parse(csvData[i][j]) - 1);
+                    tmp.transform.localPosition = new Vector3(j * 1.28f, -i * 1.28f, 0.0f);
 
-					if(int.Parse(csvData[i][j])==1)
-					{
-						meter.minValue = tmp.transform.position.x;
-						Instantiate(player, tmp.transform.position, Quaternion.identity);
-					}
-					if(int.Parse(csvData[i][j])==2)
-					{
-						meter.maxValue = tmp.transform.position.x;
-					}
-				}
-				
-			}
-		}
-	}
+                    if (int.Parse(csvData[i][j]) == 1)
+                    {
+                        meter.minValue = tmp.transform.position.x;
+                        Instantiate(player, tmp.transform.position, Quaternion.identity);
+                    }
+                    if (int.Parse(csvData[i][j]) == 2)
+                    {
+                        meter.maxValue = tmp.transform.position.x;
+                    }
+                }
 
-	public void ShowPanel()
-	{
-		gameOverPanel.SetActive(true);
-	}
+            }
+        }
+    }
 
-	#if UNITY_EDITOR
+    public void ShowPanel()
+    {
+        gameOverPanel.SetActive(true);
+    }
 
-	[CustomEditor(typeof(StageGeneration))]
-	public class StageGenerationEditor : Editor
-	{
+#if UNITY_EDITOR
 
-		public override void OnInspectorGUI()
-		{
-			base.OnInspectorGUI();
+    [CustomEditor(typeof(StageGeneration))]
+    public class StageGenerationEditor : Editor
+    {
 
-			StageGeneration stageGeneration = target as StageGeneration;
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
 
-			stageGeneration.stageObjectsParent = EditorGUILayout.ObjectField("ステージの親オブジェクト", stageGeneration.stageObjectsParent, typeof(Transform), true) as Transform;
+            StageGeneration stageGeneration = target as StageGeneration;
 
-			List<GameObject> list = stageGeneration.stageObjects;
+            stageGeneration.stageObjectsParent = EditorGUILayout.ObjectField("ステージの親オブジェクト", stageGeneration.stageObjectsParent, typeof(Transform), true) as Transform;
 
-			for (int i = 0; i < list.Count; i++)
-				list[i] = EditorGUILayout.ObjectField("ステージ画像 " + (i + 1), list[i], typeof(GameObject), true) as GameObject;
+            List<GameObject> list = stageGeneration.stageObjects;
 
-			GameObject add = EditorGUILayout.ObjectField("追加画像", null, typeof(GameObject), true) as GameObject;
+            for (int i = 0; i < list.Count; i++)
+                list[i] = EditorGUILayout.ObjectField("ステージ画像 " + (i + 1), list[i], typeof(GameObject), true) as GameObject;
 
-			if (add != null)
-				list.Add(add);
+            GameObject add = EditorGUILayout.ObjectField("追加画像", null, typeof(GameObject), true) as GameObject;
 
-			if (GUILayout.Button("1つ消す", GUILayout.Width(100)))
-			{
-				list.RemoveAt(list.Count-1);
-			}
+            if (add != null)
+                list.Add(add);
 
-			if (GUILayout.Button("保存", GUILayout.Width(100)))
-				EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-		}
-	}
+            if (GUILayout.Button("1つ消す", GUILayout.Width(100)))
+            {
+                list.RemoveAt(list.Count - 1);
+            }
 
-	#endif
+            if (GUILayout.Button("保存", GUILayout.Width(100)))
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+        }
+    }
+
+    void SetName(ref GameObject instanceobj,int number)
+    {
+        Debug.Log(number);
+        switch (number)
+        {
+            case 4:
+                instanceobj.name = "urchin";
+                break;
+            case 5:
+                instanceobj.name = "Fish";
+                break;
+        }
+    }
+    #endif
 }
