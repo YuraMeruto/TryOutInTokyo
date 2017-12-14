@@ -8,10 +8,7 @@ public class SceneSelect : MonoBehaviour {
     GameObject panelPrefab;
 
     [SerializeField]
-    GameObject btnPrefab;
-
-    [SerializeField]
-    List<AudioClip> ac = new List<AudioClip>();
+    AudioClip ac;
 
     AudioSource asrc;
 
@@ -19,27 +16,19 @@ public class SceneSelect : MonoBehaviour {
     void Start () {
         asrc = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    // ステージのボタン(Easyのボタン)を押した時
     public void stageBtnClick()
     {
         var pInstance = Instantiate(panelPrefab);
         pInstance.transform.SetParent(gameObject.transform, false);
 
-        PlaySE(0);
-
-        var bIns = Instantiate(btnPrefab);
-        bIns.transform.SetParent(pInstance.transform, false);
-        //ButtonManager bm = new ButtonManager();
-        //bm.ToGameScene();
+        PlaySE();
     }
 
-    public void PlaySE(int num)
+    // SEの再生
+    public void PlaySE()
     {
-        asrc.PlayOneShot(ac[num]);
+        asrc.PlayOneShot(ac);
     }
 }
