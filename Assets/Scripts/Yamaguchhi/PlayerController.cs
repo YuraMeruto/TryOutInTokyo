@@ -72,10 +72,12 @@ public class PlayerController : MonoBehaviour {
 
                 if (power >= maxPower)
                 {
+                    //速度制限
                     power = maxPower;
                 }
                 else if (power < minPower)
                 {
+                    //速度が低いと発射しない
                     return;
                 }
                 //飛ばす処理
