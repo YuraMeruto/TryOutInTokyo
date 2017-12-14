@@ -22,9 +22,9 @@ public class PlayerManager : MonoBehaviour
     private GameObject loadManager;
     [SerializeField, Tooltip("PlayerControlerのスクリプト")]
     private PlayerController playerControlerScript;
-    [SerializeField]
-    private GameObject hujitsuboBack;
     private CameraMove cameraMove;
+    private Transform hujitsuboTransform;
+    private Transform playerSpot;
     /******************************************************
      * プロパティ
      * ***************************************************/
@@ -37,6 +37,14 @@ public class PlayerManager : MonoBehaviour
     public Rigidbody2D MyRigidbody
     {
         get { return myRigidbody; }
+    }
+    public Transform HujitsuboTransform
+    {
+        get { return hujitsuboTransform; }
+    }
+    public Transform PlayerSpot
+    {
+        get { return playerSpot; }
     }
     /******************************************************
      * クラス関数
@@ -86,7 +94,11 @@ public class PlayerManager : MonoBehaviour
                         playerControlerScript.SePlay(4);
                         break;
                 }
+                
+                flow.enabled = false;
+                anim.SetTrigger("IsGameOver");
                 //操作不能にする
+                myRigidbody.velocity = Vector2.zero;
                 playerControlerScript.enabled = false;
                 cameraMove.enabled = false;
                 loadManager.GetComponent<StageGeneration>().ShowPanel();
@@ -111,9 +123,10 @@ public class PlayerManager : MonoBehaviour
     /// <param name="pos">ふじつぼのTransform</param>
     void Hujitsubo(Transform pos,string tag)
     {
+        //他のスクリプトにふじつぼのTransformを渡すために格納
+        hujitsuboTransform = pos;
+        //プレイヤーのジタバタのアニメーションを変更
         anim.SetBool("IsZitabata", false);
-        //プレイヤーの後ろにあるふじつぼを消す
-        hujitsuboBack.SetActive(true);
         //入っているふじつぼのアニメーションを変更
         pos.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", true);
         //ふじつぼに入っている状態のアニメーションに変更
@@ -127,7 +140,7 @@ public class PlayerManager : MonoBehaviour
         myRigidbody.velocity = Vector2.zero;
         myRigidbody.simulated = false;
         transform.rotation = Quaternion.identity;
-        Transform playerSpot = pos.Find("PlayerSpot");
+        playerSpot = pos.Find("PlayerSpot");
         transform.position = playerSpot.position;
         if(tag == "HujitsuboReverse")
         {
