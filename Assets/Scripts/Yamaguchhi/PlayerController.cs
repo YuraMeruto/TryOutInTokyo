@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField, Tooltip("プレイヤーPlayerFlowのAnimator")]
     PlayerFlow flow;
 
+	private CameraMove cameraMove;
+
     /***********************************************
      * クラス関数
      * ********************************************/
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour {
         arrow = transform.Find("Arrow").gameObject;
         meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
         audio = GetComponent<AudioSource>();
+		cameraMove = GameObject.Find("Main Camera").GetComponent<CameraMove>();
     }
 
     void Update()
@@ -51,6 +54,10 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetMouseButtonUp(0))
             {
+				if(!cameraMove.IsStart())
+				{
+					cameraMove.CameraMoveStart();
+				}
                 //離した場所のポジション
                 clickPosUp = Input.mousePosition;
                 arrow.SetActive(false);
