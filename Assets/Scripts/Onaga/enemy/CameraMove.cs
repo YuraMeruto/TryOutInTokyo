@@ -13,6 +13,9 @@ public class CameraMove : MonoBehaviour
 	[SerializeField]
 	private BackGroundMove backGround;
 
+	[SerializeField]
+	private GameObject tutorial;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -34,6 +37,7 @@ public class CameraMove : MonoBehaviour
 	public void CameraMoveStart()
 	{
 		start = true;
+		tutorial.SetActive(false);
 	}
 
 	public bool IsStart()
