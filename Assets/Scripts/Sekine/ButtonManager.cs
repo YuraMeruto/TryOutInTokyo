@@ -13,6 +13,30 @@ public class ButtonManager : MonoBehaviour
 	[SerializeField]
 	GameObject panel;
 
+	[SerializeField]
+	AudioSource decision;
+
+	bool decPlaying = false;
+
+	[SerializeField]
+	AudioSource cancel;
+
+	bool cancelPlaying = false;
+
+	private void Update()
+	{
+		if (decision != null)
+		{
+			if (decPlaying && !decision.isPlaying)
+				ToGameScene();
+		}
+		if (cancel != null)
+		{
+			if (cancelPlaying && !cancel.isPlaying)
+				SceneTransition("StageSelect");
+		}
+	}
+
 	/// <summary>
 	/// シーン遷移
 	/// </summary>
@@ -35,5 +59,17 @@ public class ButtonManager : MonoBehaviour
 		panel.SetActive(!panel.activeSelf);
 
 		ReadPlayerPref.SetStringKey("PlayingStage", stageName);
+	}
+
+	public void PlayDecision()
+	{
+		decision.PlayOneShot(decision.clip);
+		decPlaying = true;
+	}
+
+	public void PlayCancel()
+	{
+		cancel.PlayOneShot(cancel.clip);
+		cancelPlaying = true;
 	}
 }
