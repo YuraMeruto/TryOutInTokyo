@@ -37,7 +37,7 @@ public class PlayerFlow : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (Input.GetMouseButtonUp(0)) isFlow = true;
-        Debug.Log(flow);
+        //Debug.Log(flow);
         if (flow)
         {
             // 左へ

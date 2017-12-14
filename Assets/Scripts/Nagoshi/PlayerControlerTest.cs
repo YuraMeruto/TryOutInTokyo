@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerContoller : MonoBehaviour {
-
+public class PlayerControlerTest : MonoBehaviour
+{
     /***********************************************
      * クラス変数
      * ********************************************/
@@ -17,33 +17,33 @@ public class PlayerContoller : MonoBehaviour {
     private Vector2 clickPosDown, clickPosUp; //ドラッグしたポジション  
     private float pullDistance; // ドラッグした距離
     private GameObject arrow; // 矢印
+    [SerializeField, Tooltip("SEを鳴らすAudio")]
     private AudioSource audio;
+    [SerializeField]
     private AudioClip[] clip;
-	private Slider meter;
-    
-
+    private Slider meter;
+    [SerializeField, Tooltip("PlayerMangerTestのスクリプト")]
+    PlayerManagerTest playermanagerScript;
     /***********************************************
      * クラス関数
      * ********************************************/
-    // Use this for initialization
-    void Start () {
+    void Start()
+    {
         arrow = transform.Find("Arrow").gameObject;
         meter = GameObject.Find("Canvas/Meter").GetComponent<Slider>();
         audio = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        if (PlayerManager.Instance.IsAction)
+    void Update()
+    {
+        if (playermanagerScript.IsAction)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 //タッチした場所のポジション
                 clickPosDown = Input.mousePosition;
                 arrow.SetActive(true);
-                //audio.clip = clip[0];
-                //audio.Play();
+                SePlay(0);
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -58,9 +58,6 @@ public class PlayerContoller : MonoBehaviour {
                     return;
                 }
 
-
-
-
                 //飛ばす方向の計算
                 playerVec = clickPosDown - clickPosUp;
                 playerVec.Normalize();
@@ -70,24 +67,27 @@ public class PlayerContoller : MonoBehaviour {
                 power = pullDistance * 3.0f;
                 Debug.Log(power);
 
-                if(power >= maxPower)
+                if (power >= maxPower)
                 {
                     power = maxPower;
-                }else if(power < minPower)
+                }
+                else if (power < minPower)
                 {
                     return;
                 }
-                Debug.Log(power);
                 //飛ばす処理
-                PlayerManager.Instance.MyRigidbody.AddForce(playerVec * power);
-                PlayerManager.Instance.IsAction = false;
-                //audio.clip = clip[1];
-                //audio.Play();
+                playermanagerScript.MyRigidbody.AddForce(playerVec * power);
+                playermanagerScript.IsAction = false;
+                SePlay(1);
             }
-        
         }
 
-		meter.value = transform.position.x;
-	}
-    
+        meter.value = transform.position.x;
+    }
+
+    public void SePlay(int number)
+    {
+        audio.clip = clip[number];
+        audio.Play();
+    }
 }
