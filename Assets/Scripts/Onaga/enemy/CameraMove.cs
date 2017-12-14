@@ -2,18 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour {
+public class CameraMove : MonoBehaviour
+{
 
-    private Vector3 cameraPosition;
-    private float moveSpeed = 0.02f; 
+	private Vector3 cameraPosition;
+	private float moveSpeed = 0.02f;
+
+	private bool start = false;
+
 	// Use this for initialization
-	void Start () {
-        cameraPosition = transform.position;
-    }
-	
+	void Start()
+	{
+		cameraPosition = transform.position;
+	}
+
 	// Update is called once per frame
-	void Update () {
-        cameraPosition.x += moveSpeed;
-        transform.position = new Vector3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-    }
+	void Update()
+	{
+		if (start)
+		{
+			cameraPosition.x += moveSpeed;
+			transform.position = new Vector3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+		}
+	}
+
+	public void CameraMoveStart()
+	{
+		start = true;
+	}
+
+	public bool IsStart()
+	{
+		return start;
+	}
 }
