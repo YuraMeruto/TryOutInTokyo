@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
                 break;
             case "Goal":
                 myRigidbody.velocity = Vector2.zero;
-                SceneManager.LoadScene("Result");
+                SceneManager.LoadScene("GameClear");
                 break;
             case "Enemy":
                 switch (collider.gameObject.name)
