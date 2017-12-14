@@ -19,9 +19,9 @@ public class Urchin : EnemyBase
 
     //private Vector2 DefalutColliderSize = new Vector2(5.3f, 5.3f);
 
-    private float ActiveColliderSize = 4.0f;
+    private float ActiveColliderSize = 3.5f;
 
-    private float DefalutColliderSize = 2.5f;
+    private float DefalutColliderSize = 1.5f;
     private Vector2 uchinPosition;
 	private Vector2 cameraPosition;
 
