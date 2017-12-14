@@ -29,6 +29,8 @@ public class StageSelectDecideBtn : MonoBehaviour {
         PlaySE(0);
         StartCoroutine(Checking(() =>
         {
+            //ReadPlayerPref.SetStringKey("PlayingStage", "stage1");
+
             ButtonManager bm = new ButtonManager();
             bm.ToGameScene();
         }));
