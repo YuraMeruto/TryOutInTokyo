@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour {
                 arrow.SetActive(true);
                 //引っ張った時のSE
                 SePlay(0);
+                //プレイヤーの後ろのふじつぼを非表示
+                hujitsuboBack.SetActive(false);
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -68,9 +70,12 @@ public class PlayerController : MonoBehaviour {
                 clickPosUp = Input.mousePosition;
                 //矢印非表示
                 arrow.SetActive(false);
+                
 
                 if (clickPosDown == clickPosUp)
                 {
+                    //プレイヤーの後ろのふじつぼを表示
+                    hujitsuboBack.SetActive(true);
                     //指を離した場所が同じ場所なら処理抜ける
                     return;
                 }
@@ -91,6 +96,8 @@ public class PlayerController : MonoBehaviour {
                 }
                 else if (power < minPower)
                 {
+                    //プレイヤーの後ろのふじつぼを表示
+                    hujitsuboBack.SetActive(true);
                     //速度が低いと発射しない
                     return;
                 }
@@ -102,8 +109,7 @@ public class PlayerController : MonoBehaviour {
                 SePlay(1);
                 //飛んでいる時のアニメーション
                 anim.SetBool("IsPlayer", true);
-                //プレイヤーの後ろのふじつぼを非表示
-                hujitsuboBack.SetActive(false);
+                
                 //流れを再開
                 flow.isFlow = true;
             }

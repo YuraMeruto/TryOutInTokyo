@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerController playerControlerScript;
     [SerializeField]
     private GameObject hujitsuboBack;
+    private CameraMove cameraMove;
     /******************************************************
      * プロパティ
      * ***************************************************/
@@ -43,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         loadManager = GameObject.Find("Manager/LoadManager");
-
+        cameraMove = GameObject.Find("Main Camera").GetComponent<CameraMove>();
     }
 
 
@@ -87,6 +88,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 //操作不能にする
                 playerControlerScript.enabled = false;
+                cameraMove.enabled = false;
                 loadManager.GetComponent<StageGeneration>().ShowPanel();
                 break;
             default:
@@ -132,6 +134,8 @@ public class PlayerManager : MonoBehaviour
             transform.rotation = playerSpot.rotation;
         }
     }
+
+    
     //-------------------------------------
 
 
