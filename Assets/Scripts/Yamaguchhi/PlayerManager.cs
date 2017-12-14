@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviour {
+public class PlayerManager : MonoBehaviour
+{
+
     /*******************************************************
      * クラス変数
      * ****************************************************/
     private bool isAction = false;
+    [SerializeField, Tooltip("プレイヤーのRigidBody2D")]
     private Rigidbody2D myRigidbody;
     private Vector2 direction;
-    [SerializeField,Tooltip("プレイヤーのAnimator")]
+    [SerializeField, Tooltip("プレイヤーのAnimator")]
     private Animator anim;
     private Animator hujiAnim;
+    [SerializeField, Tooltip("プレイヤーPlayerFlowのAnimator")]
     private PlayerFlow flow;
     private GameObject gameOverPanel;
-    private AudioSource audio;
+    private GameObject loadManager;
+    [SerializeField, Tooltip("PlayerControlerのスクリプト")]
+    private PlayerController playerControlerScript;
     [SerializeField]
-    private AudioClip[] clip;
-
-	private GameObject loadManager;
-
+    private GameObject hujitsuboBack;
     /******************************************************
      * プロパティ
      * ***************************************************/
-     public static PlayerManager Instance
-    {
-        get;
-        private set;
-    }
 
     public bool IsAction
     {
@@ -44,84 +42,91 @@ public class PlayerManager : MonoBehaviour {
      * ***************************************************/
     void Start()
     {
-        if (Instance != null) return;
-        else
-        {
-
-            Instance = this;
-        }
-
-        myRigidbody = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        flow = GetComponent<PlayerFlow>();
-        audio = GetComponent<AudioSource>();
         loadManager = GameObject.Find("Manager/LoadManager");
-        
-        
+
     }
 
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnCollisionEnter2D(Collision2D collider)
     {
-        
         switch (collider.gameObject.tag)
         {
+            case "Wall":
+                playerControlerScript.SePlay(3);
+                break;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log(collider.gameObject.tag);
+        switch (collider.gameObject.tag)
+        {
+
             case "Hujitsubo":
-                Hujitsubo(collider.gameObject.transform);
+            case "HujitsuboReverse":
+                Hujitsubo(collider.gameObject.transform,collider.gameObject.tag);
+                playerControlerScript.SePlay(2);
                 break;
             case "Goal":
                 myRigidbody.velocity = Vector2.zero;
                 SceneManager.LoadScene("Result");
                 break;
             case "Enemy":
-                AudioSource eAudio = collider.gameObject.GetComponent<AudioSource>();
-			/*if (eAudio.clip == null)
-			{
-				eAudio.clip = clip[2];
-				eAudio.Play();
-			}
-			else
-			{
-				eAudio.Play();
-			}*/
-
-			loadManager.GetComponent<StageGeneration>().ShowPanel();
+                switch (collider.gameObject.name)
+                {
+                    case "Fish":
+                        playerControlerScript.SePlay(5);
+                        break;
+                    case "Urchin":
+                        playerControlerScript.SePlay(4);
+                        break;
+                }
+                loadManager.GetComponent<StageGeneration>().ShowPanel();
                 break;
             default:
-                //audio.clip = clip[1];
-                //audio.Play();
                 break;
         }
-		myRigidbody.simulated = true;
+        myRigidbody.simulated = true;
     }
 
-	private void OnTriggerExit2D(Collider2D collider)
-	{
-		if(collider.gameObject.tag == "Hujitsubo")
-        {
-            flow.isFlow = true;
-            hujiAnim.speed /= 1.5f;
-            anim.SetBool("IsPlayer", true);
-        }
-	}
-	/// <summary>
-	/// ふじつぼ処理
-	/// </summary>
-	/// <param name="pos">ふじつぼのTransform</param>
-	void Hujitsubo(Transform pos)
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        //audio.clip = clip[0];
-        //audio.Play();
-        hujiAnim = pos.gameObject.GetComponent<Animator>();
-        hujiAnim.speed *= 1.5f;
+        if (collider.gameObject.tag == "Hujitsubo"||collider.gameObject.tag == "HujitsuboReverse")
+        {
+            hujitsuboBack.SetActive(false);
+            flow.isFlow = true;
+            anim.SetBool("IsPlayer", true);
+            collider.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", false);
+            transform.parent = null;
+        }
+    }
 
+    /// <summary>
+    /// ふじつぼ処理
+    /// </summary>
+    /// <param name="pos">ふじつぼのTransform</param>
+    void Hujitsubo(Transform pos,string tag)
+    {
+        hujitsuboBack.SetActive(true);
+        pos.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", true);
         anim.SetBool("IsPlayer", false);
         flow.isFlow = false;
+        Debug.Log(flow.isFlow);
         isAction = true;
-		myRigidbody.velocity = Vector2.zero;
-		myRigidbody.simulated = false;
-		transform.rotation = Quaternion.identity;
-        transform.position = pos.position;
+        myRigidbody.velocity = Vector2.zero;
+        myRigidbody.simulated = false;
+        transform.rotation = Quaternion.identity;
+        //transform.parent = pos;
+        //transform.position = new Vector2(pos.position.x,);
+        Transform playerSpot = pos.Find("PlayerSpot");
+        transform.position = playerSpot.position;
+        if(tag == "HujitsuboReverse")
+        {
+            transform.rotation = playerSpot.rotation;
+        }
     }
     //-------------------------------------
+
+
 }
