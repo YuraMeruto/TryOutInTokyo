@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(collider.gameObject.tag);
+        //当たったオブジェクトのタグによって処理変更
         switch (collider.gameObject.tag)
         {
 
@@ -109,6 +109,7 @@ public class PlayerManager : MonoBehaviour
     /// <param name="pos">ふじつぼのTransform</param>
     void Hujitsubo(Transform pos,string tag)
     {
+        
         hujitsuboBack.SetActive(true);
         pos.gameObject.GetComponent<Animator>().SetBool("IsHujitsubo", true);
         anim.SetBool("IsPlayer", false);
