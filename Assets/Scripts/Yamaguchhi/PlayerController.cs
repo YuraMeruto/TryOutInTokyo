@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                //playermanagerScript.MyRigidbody.AddForce(transform);
+                playermanagerScript.MyRigidbody.AddForce(new Vector2(swimPower,0));
             }
 
         }
