@@ -8,6 +8,9 @@ public class ArrowAction : MonoBehaviour {
      * *******************************/
 	static Vector2 before;
 
+	[SerializeField]
+	Transform line;
+
 	/***********************************
      * クラス関数
      * **********************************/
@@ -19,8 +22,14 @@ public class ArrowAction : MonoBehaviour {
 	void Update()
 	{
 		//矢印の回転
+		Vector2 tmp;
 		Vector2 now = Input.mousePosition;
-		float rot = Mathf.Atan2(now.y - before.y, now.x - before.x);
+
+		tmp = now - before;
+
+		line.localScale = new Vector3(1.0f, -tmp.magnitude / 500.0f, 1.0f);
+
+		float rot = Mathf.Atan2(tmp.y, tmp.x);
 
 		transform.rotation = Quaternion.Euler(0.0f, 0.0f, rot*Mathf.Rad2Deg-90.0f);
 	}
