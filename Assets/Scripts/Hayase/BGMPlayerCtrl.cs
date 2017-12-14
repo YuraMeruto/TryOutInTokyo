@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BGMPlayerCtrl : MonoBehaviour {
 
-    [SerializeField, Tooltip("再生したいBGM")]
+    [SerializeField, Tooltip("再生したいAudio")]
     AudioClip bgm;
 
     AudioSource ausrc;
@@ -15,7 +15,7 @@ public class BGMPlayerCtrl : MonoBehaviour {
 
         if (bgm == null)
         {
-            Debug.Log("再生したいBGMをInspectorに入れてください。");
+            Debug.Log("再生したいAudioをInspectorに入れてください。");
             return;
         }
         else
