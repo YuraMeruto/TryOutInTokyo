@@ -10,7 +10,7 @@ public class OButton : MonoBehaviour
     public OFade fade;
     private float SceneChengePoint = 1.0f;
     private float fadeWiteTime = 0.0f;
-    private bool sceneFlg = false;
+    private bool sceneFlg;
     public float fadeSpeed;
 
     void Start()
@@ -19,13 +19,16 @@ public class OButton : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!sceneFlg)
         {
-            touchSE.PlayOneShot(touchSE.clip);
-            bgmPlayer.SetActive(false);
-            fadeSpeed = fade.fadeSpeed;
-            sceneFlg = true;
-        };
+            if (Input.GetMouseButtonDown(0))
+            {
+                touchSE.PlayOneShot(touchSE.clip);
+                bgmPlayer.SetActive(false);
+                fadeSpeed = fade.fadeSpeed;
+                sceneFlg = true;
+            }
+        }
         if (sceneFlg)
         {
             if (!touchSE.isPlaying)
