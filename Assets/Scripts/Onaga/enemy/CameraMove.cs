@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour {
 
     private Vector3 cameraPosition;
-    private float moveSpeed = 0.01f; 
+    private float moveSpeed = 0.02f; 
 	// Use this for initialization
 	void Start () {
         cameraPosition = transform.position;
