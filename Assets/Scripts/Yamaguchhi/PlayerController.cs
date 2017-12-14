@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
     private Slider meter;
     [SerializeField, Tooltip("PlayerMangerTestのスクリプト")]
     PlayerManager playermanagerScript;
+    [SerializeField, Tooltip("プレイヤーPlayerFlowのAnimator")]
+    PlayerFlow flow;
+    [SerializeField, Tooltip("タップした時に泳ぐ力")]
+    private float swimPower = 100000.0f;
     /***********************************************
      * クラス関数
      * ********************************************/
@@ -78,10 +82,19 @@ public class PlayerController : MonoBehaviour {
                 //飛ばす処理
                 playermanagerScript.MyRigidbody.AddForce(playerVec * power);
                 playermanagerScript.IsAction = false;
-                SePlay(1);
+                SePlay(1);             
             }
+            
         }
+        //タップしたときに少し前へ進む
+        if (flow.isFlow)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //playermanagerScript.MyRigidbody.AddForce(transform);
+            }
 
+        }
         meter.value = transform.position.x;
     }
 
