@@ -19,7 +19,7 @@ public class OButton : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             touchSE.PlayOneShot(touchSE.clip);
             bgmPlayer.SetActive(false);
