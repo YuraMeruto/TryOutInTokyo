@@ -75,6 +75,20 @@ public class StageGeneration : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
+    void SetName(ref GameObject instanceobj,int number)
+    {
+        Debug.Log(number);
+        switch (number)
+        {
+            case 4:
+                instanceobj.name = "urchin";
+                break;
+            case 5:
+                instanceobj.name = "Fish";
+                break;
+        }
+    }
+
 #if UNITY_EDITOR
 
     [CustomEditor(typeof(StageGeneration))]
@@ -106,20 +120,6 @@ public class StageGeneration : MonoBehaviour
 
             if (GUILayout.Button("保存", GUILayout.Width(100)))
                 EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-        }
-    }
-
-    void SetName(ref GameObject instanceobj,int number)
-    {
-        Debug.Log(number);
-        switch (number)
-        {
-            case 4:
-                instanceobj.name = "urchin";
-                break;
-            case 5:
-                instanceobj.name = "Fish";
-                break;
         }
     }
     #endif
