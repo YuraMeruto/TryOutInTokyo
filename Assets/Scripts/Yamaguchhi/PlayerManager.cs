@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour
                     case "Fish":
                         playerControlerScript.SePlay(5);
                         break;
-                    case "Urchin":
+                    case "urchin":
                         playerControlerScript.SePlay(4);
                         break;
                 }
