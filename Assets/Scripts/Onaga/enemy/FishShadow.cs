@@ -16,7 +16,6 @@ public class FishShadow : MonoBehaviour {
     }
 
 	void Update () {
-        Debug.Log("fishShadowPosition" + fishShadowPosition);
         cameraPosition = Camera.transform.position;
         FishMove();
         if (fishShadowPosition.x - cameraPosition.x < -20.0f)
