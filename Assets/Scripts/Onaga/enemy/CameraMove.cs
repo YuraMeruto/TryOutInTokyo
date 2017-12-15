@@ -6,8 +6,8 @@ public class CameraMove : MonoBehaviour
 {
 
 	private Vector3 cameraPosition;
-	private float moveSpeed = 0.02f;
-
+	private float moveSpeed = 0.04f;
+    private bool lowSpeedFlg;
 	private bool start = false;
 
 	[SerializeField]
@@ -25,6 +25,10 @@ public class CameraMove : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+        if(lowSpeedFlg)
+        {
+            moveSpeed = 0.02f;
+        }
 		if (start)
 		{
 			cameraPosition.x += moveSpeed;

@@ -33,7 +33,7 @@ public class StageGeneration : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage")));
+        //Debug.Log(ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage")));
         TextAsset csv = Resources.Load("CSV/" + ReadPlayerPref.GetStringKey(ReadPlayerPref.GetStringKey("PlayingStage"))) as TextAsset;
         StringReader reader = new StringReader(csv.text);
 
@@ -77,7 +77,7 @@ public class StageGeneration : MonoBehaviour
 
     void SetName(ref GameObject instanceobj,int number)
     {
-        Debug.Log(number);
+        //Debug.Log(number);
         switch (number)
         {
             case 4:
